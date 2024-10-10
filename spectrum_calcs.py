@@ -39,7 +39,7 @@ ax.set_ylabel('absorption cross-section')
 # partial fraction of water, according to Peter et al 2024
 log_f_h2o = -3.80  # log base 10
 
-p0 = 1
+p0 = 1  # assume complete opacity at 1 barr
 mass_water = 18
 mass_h2 = 2.3
 water_ratio = 10**log_f_h2o

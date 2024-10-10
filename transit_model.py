@@ -20,18 +20,21 @@ def alpha_lambda(sigma_trace, xi, planet_radius, p0, T, mass, g, star_radius, si
 
     Parameters
     ----------
-    sigma
+    sigma_trace
+    xi
     planet_radius
     p0
     T
     mass
-    planet_mass
+    g
     star_radius
+    sigma_filler
 
     Returns
     -------
     The eclipse depth as a function of wavelength
     '''
+
     # convert to meters
     r_planet = r_jovian * planet_radius
     r_star = r_sun * star_radius
