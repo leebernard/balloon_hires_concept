@@ -15,6 +15,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from toolkit import open_cross_section
+from transit_model import scale_h
+
+# constants
+G = 6.674e-11  # m^3 kg^-1 s^-2
+jovian_mass = 1.2668653e17 # m^3 s^-2
+jovian_radius = 7.1492e7  # m/R_J
+GM_j = jovian_mass / jovian_radius**2  # R_J^2 m s^-2
 
 # wavelenght range
 wl_start = 1.47
@@ -45,6 +52,10 @@ mass_h2 = 2.3
 water_ratio = 10**log_f_h2o
 mass_average = (1 - water_ratio)*mass_h2 + water_ratio*mass_water
 
+M_p = 1.76  # Jupiter masses
+R_p = 1.21
+
+g_p = GM_j * M_p/R_p**2
 
 # smooth to R=40,000
 
