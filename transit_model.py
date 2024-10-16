@@ -14,41 +14,41 @@ amu_kg = 1.66e-27  # kg/amu
 g_jovian = 24.79  # m/s^2
 r_jovian = 7.1492e7  # meters
 r_sun = 6.957e8  # meters
-
-def alpha_lambda(sigma_trace, xi, planet_radius, p0, T, mass, g, star_radius, sigma_filler=None):
-    '''
-
-    Parameters
-    ----------
-    sigma_trace
-    xi
-    planet_radius
-    p0
-    T
-    mass
-    g
-    star_radius
-    sigma_filler
-
-    Returns
-    -------
-    The eclipse depth as a function of wavelength
-    '''
-
-    # convert to meters
-    r_planet = r_jovian * planet_radius
-    r_star = r_sun * star_radius
-
-    z = z_lambda(sigma_trace=sigma_trace,
-                 xi=xi,
-                 p0=p0,
-                 planet_radius=planet_radius,
-                 mass=mass,
-                 T=T,
-                 g=g,
-                 sigma_filler=sigma_filler)
-
-    return (r_planet / r_star)**2 + (2 * r_planet * z)/(r_star**2)
+#
+# def alpha_lambda(sigma_trace, xi, planet_radius, p0, T, mass, g, star_radius, sigma_filler=None):
+#     '''
+#
+#     Parameters
+#     ----------
+#     sigma_trace
+#     xi
+#     planet_radius
+#     p0
+#     T
+#     mass
+#     g
+#     star_radius
+#     sigma_filler
+#
+#     Returns
+#     -------
+#     The eclipse depth as a function of wavelength
+#     '''
+#
+#     # convert to meters
+#     r_planet = r_jovian * planet_radius
+#     r_star = r_sun * star_radius
+#
+#     z = z_lambda(sigma_trace=sigma_trace,
+#                  xi=xi,
+#                  p0=p0,
+#                  planet_radius=planet_radius,
+#                  mass=mass,
+#                  T=T,
+#                  g=g,
+#                  sigma_filler=sigma_filler)
+#
+#     return (r_planet / r_star)**2 + (2 * r_planet * z)/(r_star**2)
 
 
 
