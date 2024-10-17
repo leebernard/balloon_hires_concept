@@ -19,22 +19,22 @@ def B_lambda(wavelength, T):
 
 
 """open files"""
-gemini_trans_file = 'excite/balloon_igrins_concept/mktrans_zm_16_15.dat'
+gemini_trans_file = 'data/mktrans_zm_16_15.dat'
 mk_trans_data = np.loadtxt(gemini_trans_file)
 
-gemini_em_file = 'excite/balloon_igrins_concept/mk_skybg_zm_16_15_ph.dat'
+gemini_em_file = 'data/mk_skybg_zm_16_15_ph.dat'
 mk_emi_data = np.loadtxt(gemini_em_file)  # ph/sec/arcsec^2/nm/m^2. Assumes 273 K
 
-oh_em_file = 'excite/balloon_igrins_concept/irlinespec1.txt'
+oh_em_file = 'data/irlinespec1.txt'
 oh_em_data = np.loadtxt(oh_em_file)  # units are (um, W cm^-2 str^-1 um^-1)
 
-mcmurdo_trans_file = 'excite/balloon_igrins_concept/transmmsday_40p0km.dat'
+mcmurdo_trans_file = 'data/transmmsday_40p0km.dat'
 mcmurdo_trans_data = np.flip(np.loadtxt(mcmurdo_trans_file), axis=0)  # data file is in long to short wavelength order
 
-mcmurdo_em_file = 'excite/balloon_igrins_concept/radmmsday_40p0km.dat'
+mcmurdo_em_file = 'data/radmmsday_40p0km.dat'
 mcmurdo_em_data = np.flip(np.loadtxt(mcmurdo_em_file), axis=0)
 
-peter_mk_trans_file = 'excite/balloon_igrins_concept/transmaunanite_4p2km.dat'
+peter_mk_trans_file = 'data/transmaunanite_4p2km.dat'
 peter_mk_trans_data = np.flip(np.loadtxt(peter_mk_trans_file), axis=0)
 
 
