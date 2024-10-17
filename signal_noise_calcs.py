@@ -50,6 +50,8 @@ exposure_time = 3600 * 4.7  # s
 
 usable_spectrum = (wl > 1.56) * (wl < 1.62)
 N_lines_gem = np.sum((1-filtered_spectrum[usable_spectrum])**2)
+# N_lines_gem = np.sum(1-filtered_spectrum[usable_spectrum])/3
+# Nlines = ((1-raw_spectrum[usable_spectrum])**2).sum()   # 10.4
 snr_cc_gem = snr_calculator(snr_gem, exposure_time, R_gem, planet_contrast, N_lines_gem, r_ref=R_gem)
 
 print(f'SNR cc, Gemini: {snr_cc_gem: .2f}')
@@ -61,3 +63,7 @@ print(f'SNR cc, Superbit platform: {snr_cc_superbit: .2f}')
 
 snr_cc_gigabit = snr_calculator(snr_gem, exposure_time, R_giga, planet_contrast, N_lines_super, r_ref=R_gem)
 print(f'SNR cc, Gigabit platform: {snr_cc_gigabit: .2f}')
+
+
+
+
