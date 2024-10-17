@@ -14,8 +14,10 @@ from scipy.ndimage import gaussian_filter
 from toolkit import snr_calculator
 
 # housekeeping variables
-debug=False
+debug=True
+# resolution = 117500  # resolution of the mk data, assuming nyquist sampling
 resolution = 40000
+
 R_gem = 8.1/2  # m
 R_super = 0.5/2  # m
 R_giga = 1.35/2  # m
@@ -51,7 +53,7 @@ exposure_time = 3600 * 4.7  # s
 usable_spectrum = (wl > 1.56) * (wl < 1.62)
 N_lines_gem = np.sum((1-filtered_spectrum[usable_spectrum])**2)
 # N_lines_gem = np.sum(1-filtered_spectrum[usable_spectrum])/3
-# Nlines = ((1-raw_spectrum[usable_spectrum])**2).sum()   # 10.4
+# N_lines_gem = ((1-raw_spectrum[usable_spectrum])**2).sum()   # 10.4
 snr_cc_gem = snr_calculator(snr_gem, exposure_time, R_gem, planet_contrast, N_lines_gem, r_ref=R_gem)
 
 print(f'SNR cc, Gemini: {snr_cc_gem: .2f}')
