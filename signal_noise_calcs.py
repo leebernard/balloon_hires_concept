@@ -41,11 +41,16 @@ if debug:
 
 
 # calculate SNR estimates
+usable_spectrum = (wl > 1.56) * (wl < 1.62)
+
 planet_contrast = 1e-3
 snr_gem = 200
 oversample = 1/2 * filtered_spectrum.size / resolution
-exposure_time = 120  # s
+exposure_time = 3600 * 4.7  # s
 
-N_lines = np.sqrt(np.sum(1-filtered_spectrum)/3)
+N_lines = np.sum(1-filtered_spectrum[usable_spectrum])/3
 snr_cc = snr_gem * np.sqrt(exposure_time/120) * R_gem/R_gem * planet_contrast * np.sqrt(N_lines)
+
+print(f'SNR cc: {snr_cc: .2f}')
+
 
