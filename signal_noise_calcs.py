@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 
 from scipy.ndimage import gaussian_filter
 
+from toolkit import snr_calculator
+
 # housekeeping variables
 debug=False
 resolution = 40000
@@ -49,7 +51,7 @@ oversample = 1/2 * filtered_spectrum.size / resolution
 exposure_time = 3600 * 4.7  # s
 
 N_lines = np.sum(1-filtered_spectrum[usable_spectrum])/3
-snr_cc = snr_gem * np.sqrt(exposure_time/120) * R_gem/R_gem * planet_contrast * np.sqrt(N_lines)
+snr_cc = snr_calculator(snr_gem, exposure_time, R_gem, planet_contrast, N_lines, r_ref=R_gem)
 
 print(f'SNR cc: {snr_cc: .2f}')
 

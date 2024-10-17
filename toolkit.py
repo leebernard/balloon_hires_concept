@@ -35,6 +35,11 @@ def open_cross_section(filename, wn_range=None, verbose=False, skiplines=None):
         return spectrum_slicer_old(wn_start, wn_end, wave_numbers, cross_sections)
 
 
+def snr_calculator(snr_ref, t, r_new, contrast, n_lines, r_ref, t_ref=120):
+    # snr_cc = snr_gem * np.sqrt(exposure_time/120) * R_gem/R_gem * planet_contrast * np.sqrt(N_lines)
+    return snr_ref * np.sqrt(t/t_ref) * r_new/r_ref * contrast * np.sqrt(n_lines)
+
+
 def spectrum_slicer_old(start_angstrom, end_angstrom, angstrom_data, spectrum_data):
 
     start_index = (np.abs(angstrom_data - start_angstrom)).argmin()
