@@ -82,7 +82,7 @@ sigma_hires = sigma_igrins
 alpha_hires = delta_hires + theta
 beta_b_hires = delta_hires - theta
 px_pitch = 18.e-6  # um
-F_hires = 10  # assume F/10 telescope
+F_hires = 12  # assume F/10 telescope
 
 wl_crit = 1.5e-6  # wavelength driving slit criteria, m
 m_crit = np.round(n_grating * sigma_hires*1e-3 / wl_crit * (np.sin(beta_b_hires) + np.sin(alpha_hires)))
@@ -113,7 +113,8 @@ print(f'Hires collimated beam diameter, 1.35 meter telescope: {d1_giga:.2f} mm')
 f2_giga = d1_giga/wl_crit * 2*px_pitch
 print(f'f camera, {D_giga} m telescope: {f2_giga} mm')
 
-
+f1_super = d1_super * F_hires
+print(f'collimating optic: fp={f1_super: .1f}')
 
 
 
