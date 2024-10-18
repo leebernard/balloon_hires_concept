@@ -84,21 +84,21 @@ beta_b_hires = delta_hires - theta
 px_pitch = 18.e-6  # um
 F_hires = 10  # assume F/10 telescope
 
-wl_crit = 1.5e-6  # wavelength driving slit criteria
+wl_crit = 1.5e-6  # wavelength driving slit criteria, m
 m_crit = np.round(n_grating * sigma_hires*1e-3 / wl_crit * (np.sin(beta_b_hires) + np.sin(alpha_hires)))
 print(f'criteria order: {m_crit}')
 
 
-d1_gem = D_gem/2 * np.cos(alpha_igrins)/(np.sin(delta_igrins) * np.cos(theta)) * R_gem * phi_gem/2 * F_igrins/F_gem
+d1_gem = R_gem * D_gem/2 * np.cos(alpha_igrins)/(np.sin(delta_igrins) * np.cos(theta)) *  phi_gem/2 * F_igrins/F_gem
 print(f'Gemini collimated beam diameter: {d1_gem*1e3: .2f} mm')
 
 phi_super = 2*wl_crit/D_super  # set slit sky angle to diffract limit at 1.5 um
 slit_width = 2*wl_crit*F_hires*1e6  # convert m to um
 print(f'hires slit wide: {slit_width} um')
 
-print(f'hires slit wide, superbit: {np.degrees(phi_super)*3600: .2f} arcseconds')
+print(f'hires slit sky angle, superbit: {np.degrees(phi_super)*3600: .2f} arcseconds')
 
-d1_super = R_hires * wl_crit/2 * np.cos(alpha_hires)
+d1_super = R_hires * wl_crit/2 * np.cos(alpha_hires) / (np.sin(delta_hires) * np.cos(theta)) * 1e3  # convert to mm
 print(f'Hires collimated beam diameter, half meter telescope: {d1_super:.2f} mm')
 
 f2_super = d1_super/wl_crit * 2*px_pitch
@@ -106,8 +106,8 @@ print(f'f camera, {D_super} m telescope: {f2_super} mm')
 
 print('------------------------')
 phi_giga = 2*wl_crit/D_giga
-print(f'hires slit wide, gigabit: {np.degrees(phi_giga)*3600: .2f} arcseconds')
-d1_giga = R_hires * sigma_hires/m_crit * np.cos(alpha_hires)
+print(f'hires slit sky angle, gigabit: {np.degrees(phi_giga)*3600: .2f} arcseconds')
+d1_giga = R_hires * wl_crit/2 * np.cos(alpha_hires) / (np.sin(delta_hires) * np.cos(theta)) * 1e3  # convert to mm
 print(f'Hires collimated beam diameter, 1.35 meter telescope: {d1_giga:.2f} mm')
 
 f2_giga = d1_giga/wl_crit * 2*px_pitch
