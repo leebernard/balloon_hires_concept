@@ -17,6 +17,9 @@ from toolkit import snr_calculator
 debug=True
 # resolution = 117500  # resolution of the mk data, assuming nyquist sampling
 resolution = 40000
+igrins_hband = np.array((1.47, 1.8))  # um
+igrins_kband = np.array((1.96, 2.46))  # um
+# In Peter's paper, it says they discard 8 orders, but it doesn't say which ones.
 
 R_gem = 8.1/2  # m
 R_super = 0.5/2  # m
@@ -37,10 +40,11 @@ filtered_spectrum = gaussian_filter(raw_spectrum, sigma)
 if debug:
     # plot the results of the filter
     test_fig, test_ax = plt.subplots(figsize=(8, 6))
-    test_ax.plot(wl, filtered_spectrum, label=f'R={resolution}')
-    test_ax.plot(wl, raw_spectrum, label='Raw spectrum data', color='r', alpha=0.5)
+    test_ax.plot(wl, 1 - filtered_spectrum, label=f'R={resolution}')
+    # test_ax.plot(wl, 1-raw_spectrum, label='Raw spectrum data', color='r', alpha=0.5)
     test_ax.set_xlabel('wavelength (um)')
-    test_ax.set_ylabel('Fractional Transmission')
+    test_ax.set_ylabel('Fractional Transparency')
+    test_ax.set_xlim(1.47, 2.5)
     test_ax.legend()
 
 
