@@ -16,11 +16,13 @@ Immersion grating has a 60 mK stability requirement, to prevent instablility in 
 import numpy as np
 
 D_gem = 8.1
+F_gem = 16
 D_super = 0.5
 D_giga = 1.35
 
 wl_igrins = np.linspace(1.47, 2.5, num=40000)  # bandpass wavelengths, um
-
+F_igrins = 10
+R_gem = 45000
 phi_gem = np.radians(0.34/3600)  # arcseconds to radians. Typicak k-band Gemini seeing is 0.6-0.4 arcseconds
 F_igrins = 8.8
 f1_igrins = 250  # mm
@@ -56,8 +58,8 @@ sigma_igrins = 1/grating_density
 
 lam_b_test = 2*sigma_igrins*1e6 * np.sin(delta_igrins) * np.cos(theta) * n_grating/hband_orders  # in nm
 
-R_gem = lam_b_hband*1e-9 / (phi_gem * D_gem) * hband_orders / (sigma_igrins * np.cos(alpha_igrins)) * d1_igrins
-print(f'Resolution R={R_gem}')
+R_igrins = lam_b_hband*1e-9 / (phi_gem * D_gem) * hband_orders / (sigma_igrins * np.cos(alpha_igrins)) * d1_igrins
+print(f'Resolution R={R_igrins}')
 
 lam_blaze_igrins = 2*sigma_igrins/hband_orders * n_grating*np.sin(delta_igrins) * 1e6  # convert from mm to nm
 # note: the above calculation is slightly off from IGRINS published numbers, with the magnitude of error depending on
@@ -79,23 +81,32 @@ delta_hires = delta_igrins
 sigma_hires = sigma_igrins
 alpha_hires = delta_hires + theta
 beta_b_hires = delta_hires - theta
-px_pitch = 18.  # um
+px_pitch = 18.e-6  # um
 F_hires = 10  # assume F/10 telescope
 
 wl_crit = 1.5e-6  # wavelength driving slit criteria
 m_crit = np.round(n_grating * sigma_hires*1e-3 / wl_crit * (np.sin(beta_b_hires) + np.sin(alpha_hires)))
 print(f'criteria order: {m_crit}')
 
-phi_super = wl_crit/D_super  # set slit wide to diffract limit at 1.5 um
-print(f'hires slit wide: {np.degrees(phi_super)*3600: .2f} arcseconds')
 
-d1_super = R_hires * sigma_hires/m_crit * np.cos(alpha_hires)
+d1_gem = D_gem/2 * np.cos(alpha_igrins)/(np.sin(delta_igrins) * np.cos(theta)) * R_gem * phi_gem/2 * F_igrins/F_gem
+print(f'Gemini collimated beam diameter: {d1_gem*1e3: .2f} mm')
+
+phi_super = 2*wl_crit/D_super  # set slit sky angle to diffract limit at 1.5 um
+slit_width = 2*wl_crit*F_hires*1e6  # convert m to um
+print(f'hires slit wide: {slit_width} um')
+
+print(f'hires slit wide, superbit: {np.degrees(phi_super)*3600: .2f} arcseconds')
+
+d1_super = R_hires * wl_crit/2 * np.cos(alpha_hires)
 print(f'Hires collimated beam diameter, half meter telescope: {d1_super:.2f} mm')
 
 f2_super = d1_super/wl_crit * 2*px_pitch
 print(f'f camera, {D_super} m telescope: {f2_super} mm')
 
-phi_giga = wl_crit/D_giga
+print('------------------------')
+phi_giga = 2*wl_crit/D_giga
+print(f'hires slit wide, gigabit: {np.degrees(phi_giga)*3600: .2f} arcseconds')
 d1_giga = R_hires * sigma_hires/m_crit * np.cos(alpha_hires)
 print(f'Hires collimated beam diameter, 1.35 meter telescope: {d1_giga:.2f} mm')
 
