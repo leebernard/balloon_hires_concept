@@ -116,6 +116,9 @@ print(f'f camera, {D_giga} m telescope: {f2_giga} mm')
 f1_super = d1_super * F_hires
 print(f'collimating optic: fp={f1_super: .1f}')
 
+'''
+Efficiency calculations
+'''
 
 igrins_efficiency = np.cos(alpha_igrins)/np.cos(beta_blaze)
 print(f'Grating efficiency of IGRINS: {igrins_efficiency: .3f}')
@@ -132,10 +135,17 @@ num_mirrors = 1
 mirror_efficiency = .99**num_mirrors
 
 num_lenses = 9
-lens_efficiency = .993**(2 * num_lenses)  # each lens has two surfaces
+lens_efficiency = .98**(2 * num_lenses)  # each lens has two surfaces
 
 print(f'throughput change: {mirror_efficiency/lens_efficiency * halftheta_efficiency/igrins_efficiency: .3f}')
-
+#
+# # do this again, but with a changed blaze angle
+# delta_15 = np.arctan(1.5)  # R3/2 grating
+#
+# alpha_15 = delta_15 + theta
+# beta_15 = delta_15 - theta
+# halfdelta_efficiency = np.cos(alpha_15)/np.cos(beta_15)
+# # no real difference between this and cutting theta in half
 
 
 
