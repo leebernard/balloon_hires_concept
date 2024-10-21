@@ -42,7 +42,7 @@ d1_igrins = 25  # mm
 F_2 = f_camera/d1_igrins
 
 '''Calculate the space the spectrum takes up'''
-# assume theta is 1 degree
+# assume theta is ~1 degree
 theta = np.radians(1.6)
 
 alpha_igrins = delta_igrins + theta
@@ -115,6 +115,27 @@ print(f'f camera, {D_giga} m telescope: {f2_giga} mm')
 
 f1_super = d1_super * F_hires
 print(f'collimating optic: fp={f1_super: .1f}')
+
+
+igrins_efficiency = np.cos(alpha_igrins)/np.cos(beta_blaze)
+print(f'Grating efficiency of IGRINS: {igrins_efficiency: .3f}')
+
+# can probably cut theta in half with the smaller beam
+alpha_halftheta = delta_igrins + theta/2
+beta_halftheta = delta_igrins - theta/2
+halftheta_efficiency = np.cos(alpha_halftheta)/np.cos(beta_halftheta)
+print(f'Grating efficiency with smaller beam: {halftheta_efficiency: .3f}')
+
+# assuming each mirrir surface is 99% efficient
+# and each lens surface is 99.3% efficient
+num_mirrors = 1
+mirror_efficiency = .99**num_mirrors
+
+num_lenses = 9
+lens_efficiency = .993**(2 * num_lenses)  # each lens has two surfaces
+
+print(f'throughput change: {mirror_efficiency/lens_efficiency * halftheta_efficiency/igrins_efficiency: .3f}')
+
 
 
 
