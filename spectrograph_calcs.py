@@ -135,15 +135,16 @@ num_mirrors = 1
 mirror_efficiency = .99**num_mirrors
 
 num_lenses = 9
-lens_efficiency = .98**(2 * num_lenses)  # each lens has two surfaces
+lens_efficiency = .99**(2 * num_lenses)  # each lens has two surfaces
 
+print(f'lens efficiency vs mirror: {lens_efficiency: .3f}, {mirror_efficiency: .3f}')
 print(f'throughput change: {mirror_efficiency/lens_efficiency * halftheta_efficiency/igrins_efficiency: .3f}')
 #
 # # do this again, but with a changed blaze angle
 # delta_15 = np.arctan(1.5)  # R3/2 grating
-#
-# alpha_15 = delta_15 + theta
-# beta_15 = delta_15 - theta
+
+# alpha_15 = delta_15 + theta/2
+# beta_15 = delta_15 - theta/2
 # halfdelta_efficiency = np.cos(alpha_15)/np.cos(beta_15)
 # # no real difference between this and cutting theta in half
 
